@@ -1,35 +1,47 @@
 open ReactNative;
 
+let imgFolder = "../../../img/";
 let _style = Style.style [];
 
 module StyleSheet = StyleSheet;
-module Style = Style;
-module View = View;
-module StatusBar = StatusBar;
-module Image = Image;
-module Packager = Packager;
-module ActivityIndicator = ActivityIndicator;
-module TouchableOpacity = TouchableOpacity;
 
+module Style = Style;
+
+module View = View;
+
+module StatusBar = StatusBar;
+
+module Image = Image;
+
+module Packager = Packager;
+
+module ActivityIndicator = ActivityIndicator;
+
+module TouchableOpacity = TouchableOpacity;
 
 /*const _shadow = (width:number, height:number, shadowRadius:number, shadowColor:string, shadowOpacity:number) =>
   ({shadowOffset:{width, height}, shadowRadius, shadowColor, shadowOpacity})*/
-
-let shadow i => {
-  open Style;
-  switch Platform.os {
-    | IOS => [shadowOffset height::0.0 width::(0.7 *. i), shadowRadius (0.7 *. i), shadowColor "black", shadowOpacity 0.3]
+let shadow i =>
+  Style.(
+    switch Platform.os {
+    | IOS => [
+        shadowOffset height::0.0 width::(0.7 *. i),
+        shadowRadius (0.7 *. i),
+        shadowColor "black",
+        shadowOpacity 0.3
+      ]
     | Android => [elevation i]
-  };
-};
+    }
+  );
+
 let stylesheet =
   Style.(
     StyleSheet.create {
       "text": style [
-        fontSize 15.0,
-        color "white",
+        fontSize 10.0, 
+        color "white", 
         backgroundColor "transparent"
-      ],
+        ],
       "button":
         style [
           borderColor "#f0f0f0",
@@ -39,17 +51,10 @@ let stylesheet =
           backgroundColor "transparent",
           alignItems `center,
           justifyContent `center,
-          ...(shadow 5.0)
+          ...shadow 5.0
         ],
-      "buttonSuccess": style [
-        backgroundColor Theme.success,
-        borderColor "transparent"
-      ],
-      "label": style [
-        fontSize 15.0,
-        color Theme.success,
-        backgroundColor "transparent"
-      ],
+      "buttonSuccess": style [backgroundColor Theme.success, borderColor "transparent"],
+      "label": style [fontSize 15.0, color Theme.success, backgroundColor "transparent"],
       "textInput":
         style [
           backgroundColor "transparent",
@@ -60,9 +65,7 @@ let stylesheet =
           fontSize 15.0
         ],
       "textInputWrap": style [borderColor "#f0f0f0", borderBottomWidth 1.0],
-      "inputGroup": style [
-        marginBottom 15.0
-      ],
+      "inputGroup": style [marginBottom 15.0],
       "row": style [flexDirection `row, flexGrow 1.0],
       "column": style [flexDirection `column, flexGrow 1.0],
       "padding": style [padding 15.0],
@@ -76,34 +79,26 @@ let stylesheet =
           overflow `hidden
         ],
       "backgroundImageWrapper": style [position `absolute, widthPct 100.0, heightPct 100.0],
-      "alert" : style [
-        borderRadius 2.0,
-        padding 15.0,
-        ...(shadow 10.0)
-      ],
-      "alertText" : style [
-        color "white",
-        backgroundColor "transparent"
-      ],
-      "alertInfo" : style [ backgroundColor Theme.info ],
-      "alertWarning" : style [ backgroundColor Theme.warning ],
-      "alertDanger" : style [ backgroundColor Theme.danger ]
-      
+      "alert": style [borderRadius 2.0, padding 15.0, ...shadow 10.0],
+      "alertText": style [color "white", backgroundColor "transparent"],
+      "alertInfo": style [backgroundColor Theme.info],
+      "alertWarning": style [backgroundColor Theme.warning],
+      "alertDanger": style [backgroundColor Theme.danger],
+      "icon": style [],
+      "media": style [ flexDirection `row ],
+      "mediaLeft": style [ flex 0.0 ],
+      "mediaRight": style [ flex 0.0 ],
+      "mediaBody": style [ flex 1.0 ]
     }
   );
-
-
-
 
 module Text = {
   let component = ReasonReact.statelessComponent "Text";
   let make ::value ::style=_style _children => {
-  let styles = StyleSheet.flatten [stylesheet##text, style];
+    let styles = StyleSheet.flatten [stylesheet##text, style];
     {
       ...component,
-      render: fun _ => {
-        ReasonReact.element (ReactNative.Text.make style::styles value::value _children)
-      }
+      render: fun _ => ReasonReact.element (ReactNative.Text.make style::styles ::value _children)
     }
   };
 };
@@ -114,9 +109,10 @@ module Btn = {
   let make ::style=_style ::onPress ::theme=`default children => {
     ...component,
     render: fun _ => {
-      let styles = StyleSheet.flatten [
-          stylesheet##button, 
-          (theme == `success ? stylesheet##buttonSuccess : _style),
+      let styles =
+        StyleSheet.flatten [
+          stylesheet##button,
+          theme == `success ? stylesheet##buttonSuccess : _style,
           style
         ];
       <TouchableOpacity accessibilityTraits=[`button] onPress>
@@ -129,29 +125,23 @@ module Btn = {
 module Label = {
   let component = ReasonReact.statelessComponent "Label";
   let make ::value ::style=_style _ => {
-    {
-      ...component,
-      render: fun _ => {
-        let styles = StyleSheet.flatten [stylesheet##label, style];
-        <Text style=styles value=value />
-      }
+    ...component,
+    render: fun _ => {
+      let styles = StyleSheet.flatten [stylesheet##label, style];
+      <Text style=styles value />
     }
-  }
+  };
 };
 
 module InputGroup = {
-  let component= ReasonReact.statelessComponent "InputGroup";
-  let make ::style=_style children =>
-    {
-      ...component,
-      render: fun _ => {
-        let styles = StyleSheet.flatten [
-          stylesheet##inputGroup,
-          style
-        ];
-        ReasonReact.element (View.make style::styles children)
-      }
-    };
+  let component = ReasonReact.statelessComponent "InputGroup";
+  let make ::style=_style children => {
+    ...component,
+    render: fun _ => {
+      let styles = StyleSheet.flatten [stylesheet##inputGroup, style];
+      ReasonReact.element (View.make style::styles children)
+    }
+  };
 };
 
 module Input = {
@@ -247,21 +237,73 @@ module BackgroundImage = {
 };
 
 module Alert = {
-  let component  = ReasonReact.statelessComponent "Alert";
+  let component = ReasonReact.statelessComponent "Alert";
   let make ::style=_style ::theme=`info ::message _ => {
-    {
-      ...component,
-      render: fun _ => {
-        let styles = StyleSheet.flatten [
+    ...component,
+    render: fun _ => {
+      let styles =
+        StyleSheet.flatten [
           stylesheet##alert,
-          (theme == `info ? stylesheet##alertInfo : _style),
-          (theme == `warning ? stylesheet##alertWarning : _style),
-          (theme == `danger ? stylesheet##alertDanger : _style),
+          theme == `info ? stylesheet##alertInfo : _style,
+          theme == `warning ? stylesheet##alertWarning : _style,
+          theme == `danger ? stylesheet##alertDanger : _style,
           style
         ];
-        <View style=styles> <Text style=stylesheet##alertText value=message /> </View>
-
-      }
+      <View style=styles> <Text style=stylesheet##alertText value=message /> </View>
     }
   };
+};
+
+module Icon = {
+  type iconType =
+    | ArrowRight;
+  let component = ReasonReact.statelessComponent "Icon";
+  let iconSource icon => {
+    switch icon {
+      | ArrowRight => Packager.require (imgFolder ^ "arrow_forward.png")
+      };
+  };
+  let make ::icon ::tint="black" ::style=_style _ => {
+    ...component,
+    render: fun _ => {
+      let styles = {
+        StyleSheet.flatten [
+          stylesheet##icon,
+          Style.style [Style.tintColor tint],
+          style
+        ]
+      };
+      <Image source=(Image.Required (iconSource icon)) style=styles/>
+    }
+  };
+};
+
+let media ::style=_style children => {
+  let styles = StyleSheet.flatten [
+    stylesheet##media,
+    style
+  ];
+  ReasonReact.element @@ View.make style::styles children;
+};
+
+let mediaLeft ::style=_style children => {
+  let styles = StyleSheet.flatten [
+    stylesheet##mediaLeft,
+    style
+  ];
+  ReasonReact.element @@ View.make style::styles children;
+};
+let mediaBody ::style=_style children => {
+  let styles = StyleSheet.flatten [
+    stylesheet##mediaBody,
+    style
+  ];
+  ReasonReact.element @@ View.make style::styles children;
+};
+let mediaRight ::style=_style children => {
+  let styles = StyleSheet.flatten [
+    stylesheet##mediaRight,
+    style
+  ];
+  ReasonReact.element @@ View.make style::styles children;
 };

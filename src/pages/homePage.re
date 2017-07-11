@@ -34,11 +34,17 @@ let make ::dispatch  _ =>  {
           </Padding>
           <Padding>
             <TouchableOpacity onPress=(select Private) >
-            <Row style=stylesheet##jumboButton  justifyContent=`spaceBetween alignItems=`center>
-              <Text value="1" /> 
-              <Text value="Jeg er privat kunde og køber eller leaser selv min næste bil" /> 
-              <Text value=">"/>
-            </Row>
+            { media style::stylesheet##jumboButton [|
+                mediaLeft [|
+                  <Text value="1" /> 
+                |],
+                mediaBody [|
+                  <Text value="Jeg er privat kunde og køber eller leaser selv min næste bil" /> 
+                |],
+                mediaRight [|
+                  <Icon icon=ArrowRight tint="white"/>
+                |]
+              |] }
             </TouchableOpacity>
           </Padding>
           <Padding>
