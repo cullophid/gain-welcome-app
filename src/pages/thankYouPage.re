@@ -21,7 +21,6 @@ let make ::dispatch  _ =>  {
   {
     ...component,
     render: fun _ => {
-      let select t () => dispatch (SelectVisitorType t);
       <Column justifyContent=`center alignItems=`center>
         <StatusBar barStyle=`lightContent />
         <BackgroundImage

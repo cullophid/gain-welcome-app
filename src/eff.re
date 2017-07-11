@@ -1,16 +1,6 @@
 open Data;
-type t = option (Task.t action action);
+type t 'a = option (Task.t 'a 'a);
 let none = None;
-let flip f a b => f b a;
-
-let dummySession = {
-      token: "", 
-        user: {
-          email: "andreas@sentia.io", 
-          forenames: "Andreas", 
-          lastname: "Møller"
-        }
-    };
 let login ({email, password}:loginForm) => {
   let query = "
     query Authenticate($email: String!, $password:String!) {
@@ -35,7 +25,7 @@ let login ({email, password}:loginForm) => {
   };
 
   let decodeSession = Util.decode (Json.Decode.at ["data", "authenticate"] Data.sessionDecoder);
-  Some (GraphQL.request query variables
+  let task = GraphQL.request query variables
     |> Task.map (fun x => {Js.log2 "RES" x; x})
     |> Task.map decodeSession
     |> Task.chain Task.fromResult
@@ -43,8 +33,8 @@ let login ({email, password}:loginForm) => {
         AsyncStorage.setItem "jwt" sess.token
           |> Task.map (fun _ => sess);
     })
-    |> Task.biMap (fun err => LoginError err) (fun ok => LoginSuccess ok)
-  );
+    |> Task.biMap (fun err => LoginError err) (fun ok => LoginSuccess ok);
+  Some task;
 };
 
 

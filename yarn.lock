@@ -1325,9 +1325,9 @@ bs-platform@^1.8.0, bs-platform@^1.8.1:
   version "1.8.1"
   resolved "https://registry.yarnpkg.com/bs-platform/-/bs-platform-1.8.1.tgz#467beaa28756b0e67ddc340274de1759caba0429"
 
-"bs-react-native@https://github.com/BuckleTypes/bs-react-native.git":
+"bs-react-native@https://github.com/cullophid/bs-react-native.git":
   version "0.1.0"
-  resolved "https://github.com/BuckleTypes/bs-react-native.git#3e47b878f281e3376c6df69b97e68d497af2609d"
+  resolved "https://github.com/cullophid/bs-react-native.git#fcb220d2d07ffc8db425465bd41a4a2eaf1f336f"
   dependencies:
     bs-platform "^1.8.0"
     reason-react "^0.2.3"

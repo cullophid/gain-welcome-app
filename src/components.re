@@ -28,8 +28,7 @@ let stylesheet =
       "text": style [
         fontSize 15.0,
         color "white",
-        backgroundColor "transparent",
-        /*fontFamily "Helvetica"*/
+        backgroundColor "transparent"
       ],
       "button":
         style [

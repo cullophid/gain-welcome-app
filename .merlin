@@ -6,8 +6,8 @@ B /Users/andreasmoller/repos/sentia/gain-welcome-app/node_modules/bs-platform/li
 FLG -nostdlib -no-alias-deps -color always -w -40+6+7+27+32..39+44+45
 S /Users/andreasmoller/repos/sentia/gain-welcome-app/node_modules/bs-react-native/lib/ocaml
 B /Users/andreasmoller/repos/sentia/gain-welcome-app/node_modules/bs-react-native/lib/ocaml
-S /Users/andreasmoller/repos/sentia/gain-welcome-app/node_modules/bs-react-native/node_modules/reason-react/lib/ocaml
-B /Users/andreasmoller/repos/sentia/gain-welcome-app/node_modules/bs-react-native/node_modules/reason-react/lib/ocaml
+S /Users/andreasmoller/repos/sentia/gain-welcome-app/node_modules/reason-react/lib/ocaml
+B /Users/andreasmoller/repos/sentia/gain-welcome-app/node_modules/reason-react/lib/ocaml
 S /Users/andreasmoller/repos/sentia/gain-welcome-app/node_modules/bs-fetch/lib/ocaml
 B /Users/andreasmoller/repos/sentia/gain-welcome-app/node_modules/bs-fetch/lib/ocaml
 S /Users/andreasmoller/repos/sentia/gain-welcome-app/node_modules/bs-json/lib/ocaml

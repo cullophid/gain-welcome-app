@@ -18,6 +18,10 @@ let biMap mapFail mapSuccess task => make (fun fail success => {
     task (fun err => mapFail err |> fail) (fun ok => mapSuccess ok |> success)
 });
 
+let fold mapFail mapSuccess task => make (fun _ success => {
+    task (fun err => mapFail err |> success) (fun ok => mapSuccess ok |> success)
+});
+
 let fromLazyPromise f => make (fun fail success => {
   resolvePromise (f ()) success fail;
 });

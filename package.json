@@ -24,7 +24,7 @@
     "bs-fetch": "^0.1.1",
     "bs-json": "^0.1.0",
     "bs-platform": "^1.8.1",
-    "bs-react-native": "https://github.com/BuckleTypes/bs-react-native.git",
+    "bs-react-native": "https://github.com/cullophid/bs-react-native.git",
     "expo": "18.x",
     "react": "16.0.0-alpha.12",
     "react-native": "0.45.x",
