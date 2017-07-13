@@ -1,88 +1,44 @@
-open Data;
-open Components;
+open ReactNative;
 let component = ReasonReact.statelessComponent "Home";
 let stylesheet = {
   open Style;
-    StyleSheet.create {
-    "title": style [
-      color "white"
-    ],
+  StyleSheet.create {
+    "title": style [fontSize 28.0, color Theme.success, fontWeight `_600 ],
+    "headerText" : style [color Theme.success],
     "wrapper": style [
-      widthPct 80.0
-    ],
-    "jumboButton": style [
-      borderWidth 3.0,
-      borderColor "white"
+      Style.widthPct 80.0
     ]
   };
 };
 
+
 let make ::dispatch  _ =>  {
+  open Ui;
+  open Data.Action;
   {
     ...component,
     render: fun _ => {
-      let select t () => dispatch (SelectVisitorType t);
-      <Column justifyContent=`center alignItems=`center>
-        <StatusBar barStyle=`lightContent />
-        <BackgroundImage
-          source=(Image.Required (Packager.require "../../../../img/img-25-dark.jpg"))
-        />
-        <View style=stylesheet##wrapper>
-          <Padding>
-            <Text value="Kære kunde" />
-            <Text value="Giv os lidt baggrundsviden så vi bedre kan betjæne dig" />
-          </Padding>
-          <Padding>
-            <TouchableOpacity onPress=(select Private) >
-            { media style::stylesheet##jumboButton [|
-                mediaLeft [|
-                  <Text value="1" /> 
-                |],
-                mediaBody [|
-                  <Text value="Jeg er privat kunde og køber eller leaser selv min næste bil" /> 
-                |],
-                mediaRight [|
-                  <Icon icon=ArrowRight tint="white"/>
-                |]
-              |] }
-            </TouchableOpacity>
-          </Padding>
-          <Padding>
-            <TouchableOpacity onPress=(select PrivateToBusiness) >
-            <Row style=stylesheet##jumboButton  justifyContent=`spaceBetween alignItems=`center>
-              <Text value="2" /> 
-              <Text value="Jeg er privat kunde og skal skifte til firmabil" /> 
-              <Text value=">"/>
-            </Row>
-            </TouchableOpacity>
-          </Padding>
-          <Padding>
-            <TouchableOpacity onPress=(select Business) >
-            <Row style=stylesheet##jumboButton  justifyContent=`spaceBetween alignItems=`center>
-              <Text value="3" /> 
-              <Text value="Jeg kører firmabil og skal vælge min næste firmabil" /> 
-              <Text value=">"/>
-            </Row>
-            </TouchableOpacity>
-          </Padding>
-          <Padding>
-            <TouchableOpacity onPress=(select Na) >
-            <Row style=stylesheet##jumboButton  justifyContent=`spaceBetween alignItems=`center>
-              <Text value="4" /> 
-              <Text value="Jeg ønsker ikke at dele denne information" /> 
-              <Text value=">"/>
-            </Row>
-            </TouchableOpacity>
-          </Padding>
-          <Padding>
-            <Row style=stylesheet##jumboButton  justifyContent=`spaceBetween alignItems=`center>
-              <Text value="1" /> 
-              <Text value="Jeg er privat kunde og køber eller leaser selv min næste bil" /> 
-              <Text value=">"/>
-            </Row>
-          </Padding>
-        </View>
-      </Column>
+      let select t () => dispatch (SetVisitorType t);
+      column alignItems::`center justifyContent::`center [
+        statusBar barStyle::`lightContent,
+        backgroundImage (Image.Required (Packager.require "../../../../img/img-29-dark.jpg")),
+        padding style::[stylesheet##wrapper][
+          paragraph style::[stylesheet##title, stylesheet##headerText] {j|Velkommen!|j},
+          paragraph style::[stylesheet##headerText] {j|Giv os lidt baggrundsviden så vi bedre kan betjæne dig|j},
+          choice onPress::(select Private) left::(text size::`large "1") [
+            text {j|Jeg er privat kunde og køber eller leaser selv min næste bil|j} 
+          ],
+          choice onPress::(select Business) left::(text size::`large "2") [
+            text {j|Jeg er privat kunde og skal skifte til firmabil|j}
+          ],
+          choice onPress::(select PrivateToBusiness) left::(text size::`large "3") [
+            text {j|Jeg kører firmabil og vælge min næste firmabil|j}
+          ],
+          choice onPress::(select Na) left::(text size::`large "4") [
+            text {j|Jeg ønsker ikke at dele denne information|j}
+          ]
+        ]
+      ];
     }
-  }
   };
+ };

@@ -10,7 +10,7 @@
   "main": "./node_modules/react-native-scripts/build/bin/crna-entry.js",
   "scripts": {
     "build": "bsb -make-world -clean-world",
-    "watch": "bsb -make-world -clean-world -w",
+    "watch": "bsb -make-world -clean-world -w 2>&1 | berror --path-to-refmttype refmttype",
     "start": "react-native-scripts start",
     "eject": "react-native-scripts eject",
     "android": "react-native-scripts android",
@@ -29,7 +29,6 @@
     "expo": "18.x",
     "react": "16.0.0-alpha.12",
     "react-native": "0.45.x",
-    "reason-cli": "https://github.com/reasonml/reason-cli/archive/beta-v-1.13.6-bin-darwin.tar.gz",
     "reason-react": "^0.2.3",
     "trace-provider": "^0.0.0"
   }

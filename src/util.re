@@ -5,3 +5,7 @@ let decode decoder json => {
   | Json_decode.DecodeError err => Error err
   }
 };
+
+external setTimeout : (unit => unit) => int => unit = "setTimeout" [@@bs.val];
+
+let delay ms => Task.make (fun _ success => setTimeout success ms);

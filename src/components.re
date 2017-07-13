@@ -277,33 +277,3 @@ module Icon = {
     }
   };
 };
-
-let media ::style=_style children => {
-  let styles = StyleSheet.flatten [
-    stylesheet##media,
-    style
-  ];
-  ReasonReact.element @@ View.make style::styles children;
-};
-
-let mediaLeft ::style=_style children => {
-  let styles = StyleSheet.flatten [
-    stylesheet##mediaLeft,
-    style
-  ];
-  ReasonReact.element @@ View.make style::styles children;
-};
-let mediaBody ::style=_style children => {
-  let styles = StyleSheet.flatten [
-    stylesheet##mediaBody,
-    style
-  ];
-  ReasonReact.element @@ View.make style::styles children;
-};
-let mediaRight ::style=_style children => {
-  let styles = StyleSheet.flatten [
-    stylesheet##mediaRight,
-    style
-  ];
-  ReasonReact.element @@ View.make style::styles children;
-};
